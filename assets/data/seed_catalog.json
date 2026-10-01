@@ -1,0 +1,311 @@
+{
+  "crops": [
+    {
+      "id": "wheat",
+      "name": {
+        "en": "Wheat (Gehun)",
+        "hi": "गेहूं (Gehun)",
+        "pa": "ਕਣਕ (Kanak)"
+      },
+      "scientificName": "Triticum aestivum",
+      "category": "Cereal",
+      "season": "Rabi",
+      "imageUrl": "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b",
+      "sowingTime": {
+        "en": "First fortnight of November (optimal: 5-20 Nov)",
+        "hi": "नवंबर का पहला पखवाड़ा (5-20 नवंबर सर्वोत्तम)",
+        "pa": "ਨਵੰਬਰ ਦਾ ਪਹਿਲਾ ਪੰਦਰਵਾੜਾ (5-20 ਨਵੰਬਰ ਸਰਵੋਤਮ)"
+      },
+      "harvestTime": {
+        "en": "April to early May",
+        "hi": "अप्रैल से मई की शुरुआत",
+        "pa": "ਅਪ੍ਰੈਲ ਤੋਂ ਮਈ ਦੀ ਸ਼ੁਰੂਆਤ"
+      },
+      "soilType": {
+        "en": "Well-drained fertile loamy & clay loam soil",
+        "hi": "अच्छी जल निकासी वाली दोमट व मटियार दोमट मिट्टी",
+        "pa": "ਚੰਗੀ ਨਿਕਾਸ ਵਾਲੀ ਦੋਮਟ ਅਤੇ ਚੀਕਣੀ ਮਿੱਟੀ"
+      },
+      "temperature": "15°C - 25°C",
+      "rainfall": "75 - 100 cm",
+      "expectedYield": "18 - 24 Quintals / Acre",
+      "marketPriceRange": "₹2,275 - ₹2,425 / Quintal (MSP)",
+      "irrigationStages": [
+        {
+          "stage": {
+            "en": "Crown Root Initiation (CRI)",
+            "hi": "ताज जड़ निकलने पर (CRI)",
+            "pa": "ਤਾਜ ਜੜ੍ਹ ਨਿਕਲਣ ਸਮੇਂ (CRI)"
+          },
+          "daysAfterSowing": "20-25 DAS",
+          "importance": "Critical"
+        },
+        {
+          "stage": {
+            "en": "Tillering Stage",
+            "hi": "कल्ले फूटने के समय",
+            "pa": "ਫੁਟਾਰਾ ਫੁੱਟਣ ਸਮੇਂ"
+          },
+          "daysAfterSowing": "40-45 DAS",
+          "importance": "Medium"
+        },
+        {
+          "stage": {
+            "en": "Flowering & Grain Filling",
+            "hi": "फूल और दाना भरने के समय",
+            "pa": "ਫੁੱਲ ਅਤੇ ਦਾਣਾ ਭਰਨ ਸਮੇਂ"
+          },
+          "daysAfterSowing": "70-85 DAS",
+          "importance": "Critical"
+        }
+      ],
+      "fertilizerSchedule": {
+        "en": "Urea: 110 kg/acre (split in 3 doses), DAP: 55 kg/acre (at basal), MOP: 20 kg/acre. Zinc sulphate 10 kg/acre.",
+        "hi": "यूरिया: 110 किग्रा/एकड़ (3 किस्तों में), डीएपी: 55 किग्रा/एकड़ (बुवाई पर), एमओपी: 20 किग्रा/एकड़। जिंक सल्फेट 10 किग्रा/एकड़।",
+        "pa": "ਯੂਰੀਆ: 110 ਕਿਲੋ/ਏਕੜ (3 ਖੁਰਾਕਾਂ ਵਿੱਚ), ਡੀ.ਏ.ਪੀ: 55 ਕਿਲੋ/ਏਕੜ (ਬਿਜਾਈ ਸਮੇਂ), ਐਮ.ਓ.ਪੀ: 20 ਕਿਲੋ/ਏਕੜ। ਜ਼ਿੰਕ ਸਲਫੇਟ 10 ਕਿਲੋ/ਏਕੜ।"
+      },
+      "pestManagement": {
+        "en": "For Yellow Rust: Spray Propiconazole 25% EC @ 200 ml in 200 L water per acre immediately on noticing pustules. For Aphids: Spray Thiamethoxam 25 WG @ 40g/acre.",
+        "hi": "पीला रतुआ: लक्षण दिखने पर प्रोपिकोनाजोल 25% ईसी 200 मिली 200 लीटर पानी में प्रति एकड़ छिड़कें। माहू (चेपा) के लिए थायमेथोक्सम 25 WG 40 ग्राम/एकड़।",
+        "pa": "ਪੀਲੀ ਕੁੰਗੀ: ਲੱਛਣ ਦਿਸਣ 'ਤੇ ਪ੍ਰੋਪੀਕੋਨਾਜ਼ੋਲ 25% ਈਸੀ 200 ਮਿਲੀਲੀਟਰ 200 ਲੀਟਰ ਪਾਣੀ ਵਿੱਚ ਪ੍ਰਤੀ ਏਕੜ ਛਿੜਕੋ। ਚੇਪੇ ਲਈ ਥਿਆਮੇਥੋਕਸਮ 25 ਡਬਲਿਊਜੀ 40 ਗ੍ਰਾਮ/ਏਕੜ।"
+      },
+      "expertTips": [
+        {
+          "en": "Treat seed with Trichoderma viride @ 4g/kg seed or Carbendazim @ 2g/kg before sowing to prevent root rot.",
+          "hi": "जड़ गलन से बचाव के लिए बुवाई से पहले बीज को ट्राइकोडर्मा विरिडी 4 ग्राम या कार्बेन्डाजिम 2 ग्राम प्रति किग्रा से उपचारित करें।",
+          "pa": "ਜੜ੍ਹ ਗਲਣ ਤੋਂ ਬਚਾਅ ਲਈ ਬਿਜਾਈ ਤੋਂ ਪਹਿਲਾਂ ਬੀਜ ਨੂੰ ਟ੍ਰਾਈਕੋਡਰਮਾ ਵਿਰੀਡੀ 4 ਗ੍ਰਾਮ ਜਾਂ ਕਾਰਬੈਂਡਾਜ਼ਿਮ 2 ਗ੍ਰਾਮ ਪ੍ਰਤੀ ਕਿੱਲੋ ਨਾਲ ਸੋਧੋ।"
+        },
+        {
+          "en": "Avoid excess irrigation at late grain filling stage to avoid crop lodging from sudden winds.",
+          "hi": "अंतिम अवस्था में तेज हवा के समय सिंचाई से बचें ताकि फसल गिरे नहीं।",
+          "pa": "ਤੇਜ਼ ਹਵਾਵਾਂ ਸਮੇਂ ਪਛੇਤੀ ਸਿੰਚਾਈ ਤੋਂ ਬਚੋ ਤਾਂ ਜੋ ਫ਼ਸਲ ਡਿੱਗਣ ਤੋਂ ਬਚੀ ਰਹੇ।"
+        }
+      ]
+    },
+    {
+      "id": "paddy",
+      "name": {
+        "en": "Paddy / Rice (Dhan)",
+        "hi": "धान / चावल (Dhan)",
+        "pa": "ਝੋਨਾ / ਚੌਲ (Jhhona)"
+      },
+      "scientificName": "Oryza sativa",
+      "category": "Cereal",
+      "season": "Kharif",
+      "imageUrl": "https://images.unsplash.com/photo-1536657464919-892534f60d6e",
+      "sowingTime": {
+        "en": "Nursery: 20 May - 15 June; Transplanting: 15 June - 5 July",
+        "hi": "नर्सरी: 20 मई - 15 जून; रोपाई: 15 जून - 5 जुलाई",
+        "pa": "ਨਰਸਰੀ: 20 ਮਈ - 15 ਜੂਨ; ਲੁਆਈ: 15 ਜੂਨ - 5 ਜੁਲਾਈ"
+      },
+      "harvestTime": {
+        "en": "October to November",
+        "hi": "अक्टूबर से नवंबर",
+        "pa": "ਅਕਤੂਬਰ ਤੋਂ ਨਵੰਬਰ"
+      },
+      "soilType": {
+        "en": "Heavy clay or clayey loam with good water retention",
+        "hi": "अधिक जल धारण क्षमता वाली भारी मटियार या दोमट मिट्टी",
+        "pa": "ਵੱਧ ਪਾਣੀ ਸਾਂਭਣ ਵਾਲੀ ਭਾਰੀ ਚੀਕਣੀ ਜਾਂ ਦੋਮਟ ਮਿੱਟੀ"
+      },
+      "temperature": "20°C - 35°C",
+      "rainfall": "120 - 180 cm",
+      "expectedYield": "25 - 30 Quintals / Acre",
+      "marketPriceRange": "₹2,183 - ₹2,320 / Quintal (MSP)",
+      "irrigationStages": [
+        {
+          "stage": {
+            "en": "Transplanting to Rooting",
+            "hi": "रोपाई से जड़ पकड़ने तक",
+            "pa": "ਲੁਆਈ ਤੋਂ ਜੜ੍ਹ ਫੜਨ ਤੱਕ"
+          },
+          "daysAfterSowing": "1-15 DAT",
+          "importance": "Critical (Keep 2-3 cm water standing)"
+        },
+        {
+          "stage": {
+            "en": "Panicle Initiation",
+            "hi": "बाली निकलने की शुरुआत",
+            "pa": "ਨਿੱਸਰਣ ਦੀ ਸ਼ੁਰੂਆਤ"
+          },
+          "daysAfterSowing": "45-55 DAT",
+          "importance": "Critical"
+        },
+        {
+          "stage": {
+            "en": "Milk & Dough Stage",
+            "hi": "दुग्धावस्था व दाना पकने पर",
+            "pa": "ਦੁੱਧ ਅਤੇ ਪੱਕਣ ਸਮੇਂ"
+          },
+          "daysAfterSowing": "75-90 DAT",
+          "importance": "Medium"
+        }
+      ],
+      "fertilizerSchedule": {
+        "en": "Urea: 90-100 kg/acre (three splits: 1/3 at puddle, 1/3 at 21 DAT, 1/3 at 42 DAT), DAP: 27 kg/acre, Zinc Sulphate 21%: 25 kg/acre.",
+        "hi": "यूरिया: 90-100 किग्रा/एकड़ (तीन भागों में), डीएपी: 27 किग्रा/एकड़, जिंक सल्फेट 21%: 25 किग्रा/एकड़।",
+        "pa": "ਯੂਰੀਆ: 90-100 ਕਿਲੋ/ਏਕੜ (ਤਿੰਨ ਕਿਸ਼ਤਾਂ ਵਿੱਚ), ਡੀ.ਏ.ਪੀ: 27 ਕਿਲੋ/ਏਕੜ, ਜ਼ਿੰਕ ਸਲਫੇਟ 21%: 25 ਕਿਲੋ/ਏਕੜ।"
+      },
+      "pestManagement": {
+        "en": "For Stem Borer: Apply Cartap Hydrochloride 4G @ 7.5 kg/acre. For Bacterial Leaf Blight: Avoid excess nitrogen and drain stagnant water.",
+        "hi": "तना छेदक: करटाप हाइड्रोक्लोराइड 4G 7.5 किग्रा/एकड़ डालें। जीवाणु झुलसा: अधिक नाइट्रोजन से बचें व पानी निकालें।",
+        "pa": "ਤਣਾ ਛੇਦਕ: ਕਾਰਟਾਪ ਹਾਈਡ੍ਰੋਕਲੋਰਾਈਡ 4G 7.5 ਕਿਲੋ/ਏਕੜ ਪਾਓ। ਬੈਕਟੀਰੀਅਲ ਝੁਲਸ: ਵਾਧੂ ਨਾਈਟ੍ਰੋਜਨ ਤੋਂ ਬਚੋ ਅਤੇ ਪਾਣੀ ਬਦਲੋ।"
+      },
+      "expertTips": [
+        {
+          "en": "Maintain 2-3 seedlings per hill at 20x15 cm spacing for highest effective tillers.",
+          "hi": "20x15 सेमी की दूरी पर प्रति थान 2-3 पौधे लगाएं जिससे अधिकतम कल्ले फूट सकें।",
+          "pa": "ਵੱਧ ਫੁਟਾਰੇ ਲਈ 20x15 ਸੈਂਟੀਮੀਟਰ ਦੀ ਦੂਰੀ 'ਤੇ ਪ੍ਰਤੀ ਥਾਂ 2-3 ਪੌਦੇ ਲਗਾਓ।"
+        },
+        {
+          "en": "Stop irrigation 10-14 days before harvest to ensure uniform maturity and ease combine harvesting.",
+          "hi": "कटाई से 10-14 दिन पूर्व पानी बंद कर दें ताकि दाना एकसमान पके और कंबाइन चलाने में आसानी हो।",
+          "pa": "ਕਟਾਈ ਤੋਂ 10-14 ਦਿਨ ਪਹਿਲਾਂ ਪਾਣੀ ਬੰਦ ਕਰ ਦਿਓ ਤਾਂ ਜੋ ਫ਼ਸਲ ਇਕਸਾਰ ਪੱਕੇ।"
+        }
+      ]
+    },
+    {
+      "id": "mustard",
+      "name": {
+        "en": "Mustard / Sarson",
+        "hi": "सरसों / राई (Sarson)",
+        "pa": "ਸਰ੍ਹੋਂ / ਰਾਇਆ (Sarson)"
+      },
+      "scientificName": "Brassica juncea",
+      "category": "Oilseed",
+      "season": "Rabi",
+      "imageUrl": "https://images.unsplash.com/photo-1508873696983-2df5703bc20d",
+      "sowingTime": {
+        "en": "20 September to 20 October",
+        "hi": "20 सितंबर से 20 अक्टूबर",
+        "pa": "20 ਸਤੰਬਰ ਤੋਂ 20 ਅਕਤੂਬਰ"
+      },
+      "harvestTime": {
+        "en": "February to March",
+        "hi": "फरवरी से मार्च",
+        "pa": "ਫ਼ਰਵਰੀ ਤੋਂ ਮਾਰਚ"
+      },
+      "soilType": {
+        "en": "Sandy loam to light loam with good drainage",
+        "hi": "उचित जल निकास वाली बलुई दोमट से हल्की दोमट मिट्टी",
+        "pa": "ਵਧੀਆ ਨਿਕਾਸ ਵਾਲੀ ਰੇਤਲੀ ਦੋਮਟ ਜਾਂ ਹਲਕੀ ਦੋਮਟ ਜ਼ਮੀਨ"
+      },
+      "temperature": "10°C - 25°C",
+      "rainfall": "25 - 40 cm",
+      "expectedYield": "8 - 12 Quintals / Acre",
+      "marketPriceRange": "₹5,650 - ₹6,100 / Quintal (MSP)",
+      "irrigationStages": [
+        {
+          "stage": {
+            "en": "First Irrigation (Pre-flowering)",
+            "hi": "पहली सिंचाई (फूल आने से पहले)",
+            "pa": "ਪਹਿਲੀ ਸਿੰਚਾਈ (ਫੁੱਲ ਪੈਣ ਤੋਂ ਪਹਿਲਾਂ)"
+          },
+          "daysAfterSowing": "28-35 DAS",
+          "importance": "High"
+        },
+        {
+          "stage": {
+            "en": "Second Irrigation (Pod formation)",
+            "hi": "दूसरी सिंचाई (फलियां बनते समय)",
+            "pa": "ਦੂਜੀ ਸਿੰਚਾਈ (ਫਲੀਆਂ ਬਣਨ ਸਮੇਂ)"
+          },
+          "daysAfterSowing": "60-65 DAS",
+          "importance": "High"
+        }
+      ],
+      "fertilizerSchedule": {
+        "en": "Urea: 45 kg/acre, SSP: 100 kg/acre (supplies vital Sulphur for oil content), MOP: 15 kg/acre.",
+        "hi": "यूरिया: 45 किग्रा/एकड़, एसएसपी: 100 किग्रा/एकड़ (तेल बढ़ाने हेतु जरूरी सल्फर देता है), एमओपी: 15 किग्रा/एकड़।",
+        "pa": "ਯੂਰੀਆ: 45 ਕਿਲੋ/ਏਕੜ, ਐਸ.ਐਸ.ਪੀ: 100 ਕਿਲੋ/ਏਕੜ (ਤੇਲ ਦੀ ਮਾਤਰਾ ਵਧਾਉਣ ਲਈ ਗੰਧਕ ਦਿੰਦਾ ਹੈ), ਐਮ.ਓ.ਪੀ: 15 ਕਿਲੋ/ਏਕੜ।"
+      },
+      "pestManagement": {
+        "en": "For Mustard Aphid (Mahu): Spray Dimethoate 30% EC @ 250 ml or Oxydemeton methyl @ 250 ml in 150 L water/acre when aphid colonies appear.",
+        "hi": "सरसों का चेपा (माहू): 250 मिली डाइमेथोएट 30% ईसी 150 लीटर पानी में प्रति एकड़ छिड़कें।",
+        "pa": "ਸਰ੍ਹੋਂ ਦਾ ਚੇਪਾ (ਮਾਹੂ): 250 ਮਿਲੀਲੀਟਰ ਡਾਈਮੇਥੋਏਟ 30% ਈਸੀ 150 ਲੀਟਰ ਪਾਣੀ ਵਿੱਚ ਪ੍ਰਤੀ ਏਕੜ ਛਿੜਕੋ।"
+      },
+      "expertTips": [
+        {
+          "en": "Thinning is mandatory at 15-20 DAS to maintain plant-to-plant distance of 10-15 cm.",
+          "hi": "बुवाई के 15-20 दिन बाद विरलीकरण (छंटाई) अवश्य करें ताकि पौधों की दूरी 10-15 सेमी रहे।",
+          "pa": "ਬਿਜਾਈ ਦੇ 15-20 ਦਿਨਾਂ ਬਾਅਦ ਵਿਰਲਾ ਕਰਨਾ ਜ਼ਰੂਰੀ ਹੈ ਤਾਂ ਜੋ ਬੂਟੇ ਤੋਂ ਬੂਟੇ ਦੀ ਦੂਰੀ 10-15 ਸੈਂਟੀਮੀਟਰ ਰਹੇ।"
+        },
+        {
+          "en": "Application of sulphur increases oil percentage in seeds by 1.5% to 2.5%.",
+          "hi": "सल्फर डालने से दानों में तेल की मात्रा 1.5% से 2.5% तक बढ़ जाती है।",
+          "pa": "ਸਲਫਰ ਦੀ ਵਰਤੋਂ ਨਾਲ ਬੀਜਾਂ ਵਿੱਚ ਤੇਲ ਦੀ ਮਾਤਰਾ 1.5% ਤੋਂ 2.5% ਤੱਕ ਵੱਧ ਜਾਂਦੀ ਹੈ।"
+        }
+      ]
+    }
+  ],
+  "videoGuides": [
+    {
+      "id": "wheat_high_yield_masterclass",
+      "youtubeId": "g20VYGsmWbU",
+      "cropId": "wheat",
+      "title": {
+        "en": "Modern Wheat Sowing & Seed Treatment Guide",
+        "hi": "गेहूं की उन्नत बुवाई और बीज उपचार तकनीक",
+        "pa": "ਕਣਕ ਦੀ ਆਧੁਨਿਕ ਬਿਜਾਈ ਅਤੇ ਬੀਜ ਸੋਧ ਤਕਨੀਕ"
+      },
+      "description": {
+        "en": "Learn step-by-step super seeder calibration, fungicide seed coating, and basal fertilizer application for maximum tillering.",
+        "hi": "सुपर सीडर की सही सेटिंग, कवकनाशी बीज उपचार और बेसल खाद डालने का सही तरीका जानें।",
+        "pa": "ਸੁਪਰ ਸੀਡਰ ਦੀ ਸਹੀ ਸੈਟਿੰਗ, ਉੱਲੀਨਾਸ਼ਕ ਬੀਜ ਸੋਧ ਅਤੇ ਖਾਦ ਪਾਉਣ ਦੇ ਤਰੀਕੇ ਬਾਰੇ ਵਿਸਥਾਰ ਜਾਣਕਾਰੀ।"
+      },
+      "duration": "09:40",
+      "category": "Sowing & Seeding",
+      "thumbnailUrl": "https://img.youtube.com/vi/g20VYGsmWbU/hqdefault.jpg"
+    },
+    {
+      "id": "pest_protection_organic_chemical",
+      "youtubeId": "jNQXAC9IVRw",
+      "cropId": "paddy",
+      "title": {
+        "en": "Complete Crop Protection & Pest Management",
+        "hi": "फसल सुरक्षा एवं कीट-रोग नियंत्रण संपूर्ण मार्गदर्शिका",
+        "pa": "ਫ਼ਸਲ ਸੁਰੱਖਿਆ ਅਤੇ ਕੀੜੇ-ਮਕੌੜੇ ਰੋਕਥਾਮ ਪੂਰੀ ਗਾਈਡ"
+      },
+      "description": {
+        "en": "Identification of stem borer, leaf folder, and early rust with cost-effective organic spray and precision chemical dosages.",
+        "hi": "तना छेदक, पत्ता लपेटक और रतुआ की पहचान, जैविक घोल एवं सटीक कीटनाशक छिड़काव विधि।",
+        "pa": "ਤਣਾ ਛੇਦਕ, ਪੱਤਾ ਲਪੇਟ ਸੁੰਡੀ ਅਤੇ ਕੁੰਗੀ ਦੀ ਪਛਾਣ ਅਤੇ ਸਹੀ ਕੀਟਨਾਸ਼ਕ ਸਪਰੇਅ ਦਾ ਤਰੀਕਾ।"
+      },
+      "duration": "12:15",
+      "category": "Crop Protection",
+      "thumbnailUrl": "https://img.youtube.com/vi/jNQXAC9IVRw/hqdefault.jpg"
+    }
+  ],
+  "advisories": [
+    {
+      "id": "weather_alert_rain",
+      "title": {
+        "en": "Pre-Monsoon Shower Advisory",
+        "hi": "मौसम चेतावनी: आगामी 48 घंटों में वर्षा की संभावना",
+        "pa": "ਮੌਸਮ ਚੇਤਾਵਨੀ: ਅਗਲੇ 48 ਘੰਟਿਆਂ ਵਿੱਚ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "description": {
+        "en": "Postpone urea broadcasting and irrigation in fields for the next 2 days to avoid fertilizer runoff.",
+        "hi": "खाद के बहने से बचने के लिए अगले 2 दिनों तक यूरिया का छिड़काव और सिंचाई स्थगित रखें।",
+        "pa": "ਖਾਦ ਦੇ ਵਹਿਣ ਤੋਂ ਬਚਣ ਲਈ ਅਗਲੇ 2 ਦਿਨਾਂ ਤੱਕ ਯੂਰੀਆ ਦਾ ਛਿੱਟਾ ਅਤੇ ਸਿੰਚਾਈ ਰੋਕ ਲਵੋ।"
+      },
+      "level": "warning",
+      "date": "Today"
+    },
+    {
+      "id": "soil_health_tip",
+      "title": {
+        "en": "Soil Testing Before Rabi Sowing",
+        "hi": "रबी बुवाई से पहले मिट्टी परीक्षण अवश्य कराएं",
+        "pa": "ਹਾੜ੍ਹੀ ਦੀ ਬਿਜਾਈ ਤੋਂ ਪਹਿਲਾਂ ਮਿੱਟੀ ਦੀ ਜਾਂਚ ਜ਼ਰੂਰ ਕਰਵਾਓ"
+      },
+      "description": {
+        "en": "Send soil samples to your nearest Krishi Vigyan Kendra (KVK) to optimize fertilizer costs and boost yield.",
+        "hi": "खाद की बचत और अधिक उपज के लिए अपने नजदीकी कृषि विज्ञान केंद्र से मिट्टी की जांच कराएं।",
+        "pa": "ਖਾਦ ਦੇ ਖ਼ਰਚੇ ਘਟਾਉਣ ਅਤੇ ਵੱਧ ਝਾੜ ਲਈ ਨੇੜਲੇ ਕ੍ਰਿਸ਼ੀ ਵਿਗਿਆਨ ਕੇਂਦਰ ਤੋਂ ਮਿੱਟੀ ਪਰਖ ਕਰਵਾਓ।"
+      },
+      "level": "info",
+      "date": "Seasonal"
+    }
+  ]
+}
