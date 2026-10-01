@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kisan Mitra | Sadhu Ram &amp; Sons</title>
+  <meta name="description" content="Kisan Mitra - Ultra-lightweight, offline-first crop guide and agricultural advisory app for Indian farmers.">
+  <meta name="theme-color" content="#135826">
+  <style>
+    :root {
+      --primary: #135826;
+      --primary-light: #2E7D32;
+      --secondary: #B45309;
+      --bg: #F6F8F6;
+      --surface: #FFFFFF;
+      --text: #0F1A12;
+      --text-muted: #5D6E63;
+      --border: #C7D4CA;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 480px;
+      width: 100%;
+      padding: 28px 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      text-align: center;
+      margin-top: 40px;
+    }
+    .logo {
+      width: 64px;
+      height: 64px;
+      background: var(--primary);
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    h2 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .badge {
+      display: inline-block;
+      background: #E8F5E9;
+      color: #0C3818;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 13px 20px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--primary-light);
+    }
+    .btn-outline {
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
+      background: transparent;
+    }
+    .helpline {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .helpline strong {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="logo">🌾</div>
+    <h1>किसान मित्र • Kisan Mitra</h1>
+    <h2>Sadhu Ram &amp; Sons Farming Advisory</h2>
+    <div class="badge">100% Offline Ready • Zero Login</div>
+
+    <p>
+      Smart crop guides (Wheat, Paddy, Mustard), seed treatments, fertilizer dosage calculators, and YouTube masterclasses optimized for low-end devices.
+    </p>
+
+    <div class="btn-group">
+      <a id="deepLinkBtn" href="sadhuram://" class="btn btn-primary">
+        📲 Open in Kisan Mitra App
+      </a>
+      <a href="https://github.com" class="btn btn-outline">
+        📥 Download APK (&lt;18 MB)
+      </a>
+    </div>
+
+    <div class="helpline">
+      निःशुल्क किसान हेल्पलाइन / Toll-Free Helpline: <strong>1800-180-1551</strong>
+    </div>
+  </div>
+
+  <script>
+    // Smart deep link path mapper
+    (function() {
+      const path = window.location.pathname;
+      const btn = document.getElementById('deepLinkBtn');
+      // If opened with /crop/... or /advisory/... or /video/...
+      const match = path.match(/\/(crop|advisory|video)\/([^\/]+)/);
+      if (match) {
+        const appUrl = 'sadhuram://' + match[1] + '/' + match[2];
+        btn.href = appUrl;
+        btn.innerText = '📲 Open ' + match[1].toUpperCase() + ' in App';
+        // Attempt automatic deep link launch
+        setTimeout(function() {
+          window.location.href = appUrl;
+        }, 300);
+      }
+    })();
+  </script>
+</body>
+</html>

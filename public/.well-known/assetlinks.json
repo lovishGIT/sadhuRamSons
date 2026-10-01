@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.sadhuram.app.sadhuramsons",
+      "sha256_cert_fingerprints": [
+        "14:6D:E9:7D:0F:52:CC:CF:66:E8:13:95:C0:AE:03:03:68:55:A6:61:9D:69:B6:33:CA:9D:88:51:71:3B:54:19",
+        "REPLACE_WITH_YOUR_RELEASE_KEYSTORE_SHA256_FINGERPRINT"
+      ]
+    }
+  }
+]

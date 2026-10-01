@@ -19,15 +19,26 @@ class HiveService {
   static const String keyIsInitialized = 'catalog_initialized';
   static const String keyLanguage = 'selected_language_code';
 
-  late Box<dynamic> _catalogBox;
-  late Box<dynamic> _settingsBox;
+  Box<dynamic>? _catalogBox;
+  Box<dynamic>? _settingsBox;
 
   static final HiveService _instance = HiveService._internal();
   factory HiveService() => _instance;
   HiveService._internal();
 
-  /// Initialize Hive and open required boxes
-  Future<void> init() async {
+  bool get isReady => _catalogBox != null && _settingsBox != null;
+
+  /// Initialize Hive and open required boxes.
+  /// Accepts optional pre-opened boxes for isolated unit testing.
+  Future<void> init({
+    Box<dynamic>? catalogBox,
+    Box<dynamic>? settingsBox,
+  }) async {
+    if (catalogBox != null && settingsBox != null) {
+      _catalogBox = catalogBox;
+      _settingsBox = settingsBox;
+      return;
+    }
     await Hive.initFlutter();
     _catalogBox = await Hive.openBox(catalogBoxName);
     _settingsBox = await Hive.openBox(settingsBoxName);
@@ -36,9 +47,12 @@ class HiveService {
   /// Ensures catalog is populated from bundled asset seed if Hive is empty.
   /// Guarantees instant 0-millisecond offline first launch.
   Future<void> seedCatalogIfEmpty() async {
+    final box = _catalogBox;
+    if (box == null) return;
+
     final isInitialized =
-        _catalogBox.get(keyIsInitialized, defaultValue: false) as bool;
-    if (isInitialized && _catalogBox.containsKey(keyCrops)) {
+        box.get(keyIsInitialized, defaultValue: false) as bool;
+    if (isInitialized && box.containsKey(keyCrops)) {
       return;
     }
 
@@ -49,18 +63,21 @@ class HiveService {
       final Map<String, dynamic> data =
           json.decode(jsonString) as Map<String, dynamic>;
 
-      await _catalogBox.put(keyCrops, json.encode(data['crops']));
-      await _catalogBox.put(keyVideos, json.encode(data['videoGuides']));
-      await _catalogBox.put(keyAdvisories, json.encode(data['advisories']));
-      await _catalogBox.put(keyIsInitialized, true);
+      await box.put(keyCrops, json.encode(data['crops']));
+      await box.put(keyVideos, json.encode(data['videoGuides']));
+      await box.put(keyAdvisories, json.encode(data['advisories']));
+      await box.put(keyIsInitialized, true);
     } catch (e) {
       // In case of asset reading error, fallback cleanly
     }
   }
 
-  /// Retrieve cached crops
+  /// Retrieve cached crops synchronously from in-memory Hive box
   List<CropModel> getCrops() {
-    final raw = _catalogBox.get(keyCrops);
+    final box = _catalogBox;
+    if (box == null) return [];
+
+    final raw = box.get(keyCrops);
     if (raw == null) return [];
     try {
       final List<dynamic> list = json.decode(raw as String) as List<dynamic>;
@@ -72,9 +89,12 @@ class HiveService {
     }
   }
 
-  /// Retrieve cached videos
+  /// Retrieve cached videos synchronously from in-memory Hive box
   List<VideoGuideModel> getVideoGuides() {
-    final raw = _catalogBox.get(keyVideos);
+    final box = _catalogBox;
+    if (box == null) return [];
+
+    final raw = box.get(keyVideos);
     if (raw == null) return [];
     try {
       final List<dynamic> list = json.decode(raw as String) as List<dynamic>;
@@ -89,9 +109,12 @@ class HiveService {
     }
   }
 
-  /// Retrieve cached advisories
+  /// Retrieve cached advisories synchronously from in-memory Hive box
   List<AdvisoryModel> getAdvisories() {
-    final raw = _catalogBox.get(keyAdvisories);
+    final box = _catalogBox;
+    if (box == null) return [];
+
+    final raw = box.get(keyAdvisories);
     if (raw == null) return [];
     try {
       final List<dynamic> list = json.decode(raw as String) as List<dynamic>;
@@ -107,11 +130,16 @@ class HiveService {
 
   /// Get preferred language code (defaults to 'hi' for Indian farmers)
   String getLanguageCode() {
-    return _settingsBox.get(keyLanguage, defaultValue: 'hi') as String;
+    final box = _settingsBox;
+    if (box == null) return 'hi';
+    return box.get(keyLanguage, defaultValue: 'hi') as String;
   }
 
   /// Set preferred language code ('en', 'hi', 'pa')
   Future<void> setLanguageCode(String code) async {
-    await _settingsBox.put(keyLanguage, code);
+    final box = _settingsBox;
+    if (box != null) {
+      await box.put(keyLanguage, code);
+    }
   }
 }

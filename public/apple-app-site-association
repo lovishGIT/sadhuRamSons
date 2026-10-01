@@ -1,0 +1,42 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": [
+          "YOUR_APPLE_DEVELOPER_TEAM_ID.com.sadhuram.app.sadhuramsons"
+        ],
+        "components": [
+          {
+            "/": "/crop/*",
+            "comment": "Matches direct crop guides, e.g. /crop/wheat, /crop/paddy, /crop/mustard"
+          },
+          {
+            "/": "/advisory/*",
+            "comment": "Matches field alerts, e.g. /advisory/weather_alert_rain"
+          },
+          {
+            "/": "/video/*",
+            "comment": "Matches farming video guides, e.g. /video/wheat_high_yield_masterclass"
+          },
+          {
+            "/": "/",
+            "comment": "Matches app root"
+          }
+        ],
+        "appID": "YOUR_APPLE_DEVELOPER_TEAM_ID.com.sadhuram.app.sadhuramsons",
+        "paths": [
+          "/crop/*",
+          "/advisory/*",
+          "/video/*",
+          "/"
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "YOUR_APPLE_DEVELOPER_TEAM_ID.com.sadhuram.app.sadhuramsons"
+    ]
+  }
+}
