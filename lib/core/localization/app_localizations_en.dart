@@ -22,6 +22,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get allCrops => 'All Crops';
 
   @override
+  String get products => 'Products & Medicines';
+
+  @override
+  String get allProducts => 'All Products';
+
+  @override
+  String get insecticides => 'Insecticides';
+
+  @override
+  String get fungicides => 'Fungicides';
+
+  @override
+  String get herbicides => 'Herbicides';
+
+  @override
+  String get technicalFormula => 'Technical Formulation';
+
+  @override
+  String get dosagePerAcre => 'Dosage Per Acre';
+
+  @override
+  String get targetPests => 'Target Pests & Weeds';
+
+  @override
+  String get packSizes => 'Available Pack Sizes';
+
+  @override
+  String get callToOrder => 'Call / Order: 7355555441';
+
+  @override
+  String get recommendedMedicines => 'Recommended Agrochemicals';
+
+  @override
+  String get viewProduct => 'View Product Details';
+
+  @override
+  String get originalGuaranteed => '100% Genuine Guaranteed';
+
+  @override
   String get videoGuides => 'Video Guides';
 
   @override
@@ -70,13 +109,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tapToWatch => 'Tap to stream adaptive video guide';
 
   @override
-  String get offlineReady => '100% Offline Ready';
-
-  @override
   String get cachedCatalog => 'Loaded from local storage';
 
   @override
-  String get searchHint => 'Search crops, seeds, pests, tips...';
+  String get searchHint => 'Search crops, insecticides, fungicides...';
 
   @override
   String get scientificName => 'Botanical Name';
@@ -100,7 +136,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stage => 'Growth Stage';
 
   @override
-  String get noDataFound => 'No crop or guide found';
+  String get noDataFound => 'No item found';
 
   @override
   String get close => 'Close';
@@ -118,7 +154,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get kharifSeason => 'Kharif Crop';
 
   @override
-  String get farmerHelpline => 'Toll-Free Kisan Call Center: 1800-180-1551';
+  String get farmerHelpline => 'Sadhu Ram & Sons: 7355555441';
 
   @override
   String get viewDetails => 'View Crop Guide';

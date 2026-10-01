@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/constants/app_colors.dart';
+import '../../core/constants/app_env.dart';
 import '../../core/constants/app_typography.dart';
 import '../../core/localization/app_localizations.dart';
 import '../../core/localization/localization_extension.dart';
 import '../../core/localization/locale_provider.dart';
 import '../../core/utils/media_url_helper.dart';
 import '../../data/models/crop_model.dart';
+import '../../data/models/product_model.dart';
 import '../../data/models/video_guide_model.dart';
 import '../../data/models/advisory_model.dart';
 import '../../data/repositories/catalog_repository.dart';
@@ -23,7 +26,10 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  String _selectedCategory = 'ALL';
+  // Main view switcher: 'products' is primary per customer requirement
+  String _activeTab = 'products'; // 'products' or 'crops'
+  String _selectedProductCategory = 'ALL';
+  String _selectedCropCategory = 'ALL';
   String _searchQuery = '';
   final TextEditingController _searchController = TextEditingController();
 
@@ -33,13 +39,60 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     super.dispose();
   }
 
+  Future<void> _makePhoneCall(BuildContext context) async {
+    final phone = AppEnv.farmerHelpline;
+    final uri = Uri(scheme: 'tel', path: phone);
+    try {
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri);
+      } else if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Helpline: $phone'),
+            backgroundColor: AppColors.primary,
+          ),
+        );
+      }
+    } catch (_) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Helpline: $phone'),
+            backgroundColor: AppColors.primary,
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final cropsAsync = ref.watch(cropsProvider);
+    final productsAsync = ref.watch(productsProvider);
     final videosAsync = ref.watch(videoGuidesProvider);
     final advisoriesAsync = ref.watch(advisoriesProvider);
     final langCode = ref.watch(localeProvider).languageCode;
     final l10n = context.l10n;
+
+    final isProductsTab = _activeTab == 'products';
+
+    final allProducts = productsAsync.value ?? [];
+    final filteredProducts = _filterProducts(allProducts, langCode);
+
+    final allCrops = cropsAsync.value ?? [];
+    final filteredCrops = _filterCrops(allCrops, langCode);
+
+    final headerTitle = isProductsTab
+        ? _getSelectedProductCategoryTitle(l10n, langCode)
+        : _getSelectedCropCategoryTitle(l10n, langCode);
+
+    final countText = isProductsTab
+        ? (productsAsync.isLoading
+              ? '...'
+              : _getProductsCountText(filteredProducts.length, langCode))
+        : (cropsAsync.isLoading
+              ? '...'
+              : _getCropsCountText(filteredCrops.length, langCode));
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -66,33 +119,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ],
         ),
         actions: [
-          // Offline Badge Chip
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 12),
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            decoration: BoxDecoration(
-              color: Colors.white24,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(
-                  Icons.cloud_done_rounded,
-                  size: 13,
-                  color: Colors.white,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  l10n.offlineReady,
-                  style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
+          IconButton(
+            icon: const Icon(Icons.phone_in_talk_rounded),
+            tooltip: AppEnv.farmerHelpline,
+            onPressed: () => _makePhoneCall(context),
           ),
           IconButton(
             icon: const Icon(Icons.translate_rounded),
@@ -105,13 +135,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         color: AppColors.primary,
         onRefresh: () async {
           ref.invalidate(cropsProvider);
+          ref.invalidate(productsProvider);
           ref.invalidate(videoGuidesProvider);
           ref.invalidate(advisoriesProvider);
         },
         child: CustomScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           slivers: [
-            // Search Bar & Filter Header
+            // Search Bar & Primary Section Switcher
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
@@ -161,8 +192,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                     const SizedBox(height: 12),
 
-                    // Horizontal Category Chips
-                    _buildCategoryChips(l10n),
+                    // Primary Tab Segment: Products vs Crops
+                    _buildPrimarySegmentSwitch(l10n),
+                    const SizedBox(height: 12),
+
+                    // Horizontal Category Chips for Selected Tab
+                    if (isProductsTab)
+                      _buildProductCategoryChips(l10n, langCode)
+                    else
+                      _buildCropCategoryChips(l10n, langCode),
                   ],
                 ),
               ),
@@ -178,7 +216,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
 
-            // Crop Catalog Section Header
+            // Section Header (Dynamic Title & Reactive Item Count)
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 14, 16, 8),
@@ -186,57 +224,107 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      l10n.allCrops,
+                      headerTitle,
                       style: AppTypography.title.copyWith(fontSize: 18),
                     ),
-                    Text('3 Crops Available', style: AppTypography.caption),
+                    Text(countText, style: AppTypography.caption),
                   ],
                 ),
               ),
             ),
 
-            // Horizontal Crop Cards / Vertical Grid
-            cropsAsync.when(
-              data: (crops) {
-                final filtered = _filterCrops(crops, langCode);
-                if (filtered.isEmpty) {
-                  return SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.all(32),
-                      child: Center(
-                        child: Text(
-                          l10n.noDataFound,
-                          style: AppTypography.bodyMedium.copyWith(
-                            color: AppColors.textMuted,
+            // Product Cards OR Crop Cards based on active tab
+            if (isProductsTab)
+              productsAsync.when(
+                data: (products) {
+                  final filtered = _filterProducts(products, langCode);
+                  if (filtered.isEmpty) {
+                    return SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.all(32),
+                        child: Center(
+                          child: Text(
+                            l10n.noDataFound,
+                            style: AppTypography.bodyMedium.copyWith(
+                              color: AppColors.textMuted,
+                            ),
                           ),
                         ),
                       ),
+                    );
+                  }
+
+                  return SliverPadding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final product = filtered[index];
+                        return _buildProductCard(
+                          context,
+                          product,
+                          langCode,
+                          l10n,
+                        );
+                      }, childCount: filtered.length),
                     ),
                   );
-                }
-
-                return SliverPadding(
+                },
+                loading: () => SliverPadding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   sliver: SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      final crop = filtered[index];
-                      return _buildCropCard(context, crop, langCode, l10n);
-                    }, childCount: filtered.length),
-                  ),
-                );
-              },
-              loading: () => SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) => _buildCropCardShimmer(),
-                    childCount: 3,
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) => _buildCardShimmer(),
+                      childCount: 3,
+                    ),
                   ),
                 ),
+                error: (err, stack) => SliverToBoxAdapter(
+                  child: Center(child: Text('Error: $err')),
+                ),
+              )
+            else
+              cropsAsync.when(
+                data: (crops) {
+                  final filtered = _filterCrops(crops, langCode);
+                  if (filtered.isEmpty) {
+                    return SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.all(32),
+                        child: Center(
+                          child: Text(
+                            l10n.noDataFound,
+                            style: AppTypography.bodyMedium.copyWith(
+                              color: AppColors.textMuted,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+
+                  return SliverPadding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final crop = filtered[index];
+                        return _buildCropCard(context, crop, langCode, l10n);
+                      }, childCount: filtered.length),
+                    ),
+                  );
+                },
+                loading: () => SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) => _buildCardShimmer(),
+                      childCount: 3,
+                    ),
+                  ),
+                ),
+                error: (err, stack) => SliverToBoxAdapter(
+                  child: Center(child: Text('Error: $err')),
+                ),
               ),
-              error: (err, stack) =>
-                  SliverToBoxAdapter(child: Center(child: Text('Error: $err'))),
-            ),
 
             // Video Guides Section Header
             SliverToBoxAdapter(
@@ -263,7 +351,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             videosAsync.when(
               data: (videos) {
                 return SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
                   sliver: SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
                       final video = videos[index];
@@ -273,7 +361,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 );
               },
               loading: () => SliverPadding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) => _buildVideoCardShimmer(),
@@ -285,37 +373,63 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   const SliverToBoxAdapter(child: SizedBox.shrink()),
             ),
 
-            // Farmer Helpline Call Footer
+            // Farmer Helpline Call Footer (Interactive 1-Tap Dialing)
             SliverToBoxAdapter(
-              child: Container(
-                margin: const EdgeInsets.fromLTRB(16, 0, 16, 32),
-                padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: AppColors.primaryContainer,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: AppColors.primaryLight.withAlpha(80),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.call_rounded,
-                      color: AppColors.primary,
-                      size: 24,
+              child: InkWell(
+                onTap: () => _makePhoneCall(context),
+                child: Container(
+                  margin: const EdgeInsets.fromLTRB(16, 0, 16, 32),
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryContainer,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: AppColors.primaryLight,
+                      width: 1.2,
                     ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        l10n.farmerHelpline,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.onPrimaryContainer,
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: const BoxDecoration(
+                          color: AppColors.primary,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.call_rounded,
+                          color: Colors.white,
+                          size: 20,
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              l10n.farmerHelpline,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w800,
+                                color: AppColors.onPrimaryContainer,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              l10n.callToOrder,
+                              style: const TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.primaryDark,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Icon(Icons.chevron_right, color: AppColors.primary),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -325,20 +439,124 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget _buildCategoryChips(AppLocalizations l10n) {
+  // Primary Segment Switch: Products & Medicines vs Crop Library
+  Widget _buildPrimarySegmentSwitch(AppLocalizations l10n) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.surfaceSubtle,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: AppColors.border),
+      ),
+      padding: const EdgeInsets.all(3),
+      child: Row(
+        children: [
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                if (_activeTab != 'products') {
+                  setState(() {
+                    _activeTab = 'products';
+                  });
+                }
+              },
+              borderRadius: BorderRadius.circular(8),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                decoration: BoxDecoration(
+                  color: _activeTab == 'products'
+                      ? AppColors.primary
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.science_rounded,
+                      size: 16,
+                      color: _activeTab == 'products'
+                          ? Colors.white
+                          : AppColors.textPrimary,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      l10n.products,
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: _activeTab == 'products'
+                            ? Colors.white
+                            : AppColors.textPrimary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                if (_activeTab != 'crops') {
+                  setState(() {
+                    _activeTab = 'crops';
+                  });
+                }
+              },
+              borderRadius: BorderRadius.circular(8),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                decoration: BoxDecoration(
+                  color: _activeTab == 'crops'
+                      ? AppColors.primary
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.grass_rounded,
+                      size: 16,
+                      color: _activeTab == 'crops'
+                          ? Colors.white
+                          : AppColors.textPrimary,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      l10n.crops,
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: _activeTab == 'crops'
+                            ? Colors.white
+                            : AppColors.textPrimary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Product Category Filter Chips
+  Widget _buildProductCategoryChips(AppLocalizations l10n, String langCode) {
     final categories = [
-      {'key': 'ALL', 'label': l10n.allCrops},
-      {'key': 'Rabi', 'label': l10n.rabiSeason},
-      {'key': 'Kharif', 'label': l10n.kharifSeason},
-      {'key': 'Cereal', 'label': 'Cereals (अनाज)'},
-      {'key': 'Oilseed', 'label': 'Oilseeds (तिलहन)'},
+      {'key': 'ALL', 'label': l10n.allProducts},
+      {'key': 'Insecticide', 'label': l10n.insecticides},
+      {'key': 'Fungicide', 'label': l10n.fungicides},
+      {'key': 'Herbicide', 'label': l10n.herbicides},
     ];
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         children: categories.map((cat) {
-          final isSelected = _selectedCategory == cat['key'];
+          final isSelected = _selectedProductCategory == cat['key'];
           return Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: ChoiceChip(
@@ -356,7 +574,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
               onSelected: (selected) {
                 setState(() {
-                  _selectedCategory = cat['key']!;
+                  _selectedProductCategory = cat['key']!;
                 });
               },
             ),
@@ -366,18 +584,166 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
+  // Crop Category Filter Chips
+  Widget _buildCropCategoryChips(AppLocalizations l10n, String langCode) {
+    final categories = [
+      {'key': 'ALL', 'label': l10n.allCrops},
+      {'key': 'Rabi', 'label': l10n.rabiSeason},
+      {'key': 'Kharif', 'label': l10n.kharifSeason},
+      {
+        'key': 'Cereal',
+        'label': langCode == 'hi'
+            ? 'अनाज (Cereals)'
+            : (langCode == 'pa' ? 'ਅਨਾਜ (Cereals)' : 'Cereals'),
+      },
+      {
+        'key': 'Oilseed',
+        'label': langCode == 'hi'
+            ? 'तिलहन (Oilseeds)'
+            : (langCode == 'pa' ? 'ਤੇਲ ਬੀਜ (Oilseeds)' : 'Oilseeds'),
+      },
+    ];
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: categories.map((cat) {
+          final isSelected = _selectedCropCategory == cat['key'];
+          return Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: ChoiceChip(
+              label: Text(cat['label']!),
+              selected: isSelected,
+              selectedColor: AppColors.primary,
+              backgroundColor: AppColors.surface,
+              labelStyle: TextStyle(
+                fontSize: 12,
+                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                color: isSelected ? Colors.white : AppColors.textPrimary,
+              ),
+              side: BorderSide(
+                color: isSelected ? AppColors.primary : AppColors.border,
+              ),
+              onSelected: (selected) {
+                setState(() {
+                  _selectedCropCategory = cat['key']!;
+                });
+              },
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  String _getSelectedProductCategoryTitle(
+    AppLocalizations l10n,
+    String langCode,
+  ) {
+    if (_searchQuery.isNotEmpty) {
+      if (langCode == 'hi') return 'खोज परिणाम';
+      if (langCode == 'pa') return 'ਖੋਜ ਨਤੀਜੇ';
+      return 'Search Results';
+    }
+    switch (_selectedProductCategory) {
+      case 'Insecticide':
+        return l10n.insecticides;
+      case 'Fungicide':
+        return l10n.fungicides;
+      case 'Herbicide':
+        return l10n.herbicides;
+      case 'ALL':
+      default:
+        return l10n.allProducts;
+    }
+  }
+
+  String _getProductsCountText(int count, String langCode) {
+    if (langCode == 'hi') {
+      return count == 1 ? '1 उत्पाद उपलब्ध' : '$count उत्पाद उपलब्ध';
+    }
+    if (langCode == 'pa') {
+      return count == 1 ? '1 ਉਤਪਾਦ ਉਪਲਬਧ' : '$count ਉਤਪਾਦ ਉਪਲਬਧ';
+    }
+    return count == 1 ? '1 Product Available' : '$count Products Available';
+  }
+
+  String _getSelectedCropCategoryTitle(AppLocalizations l10n, String langCode) {
+    if (_searchQuery.isNotEmpty) {
+      if (langCode == 'hi') return 'खोज परिणाम';
+      if (langCode == 'pa') return 'ਖੋਜ ਨਤੀਜੇ';
+      return 'Search Results';
+    }
+    switch (_selectedCropCategory) {
+      case 'Rabi':
+        return l10n.rabiSeason;
+      case 'Kharif':
+        return l10n.kharifSeason;
+      case 'Cereal':
+        if (langCode == 'hi') return 'अनाज फसलें (Cereals)';
+        if (langCode == 'pa') return 'ਅਨਾਜ ਫ਼ਸਲਾਂ (Cereals)';
+        return 'Cereal Crops';
+      case 'Oilseed':
+        if (langCode == 'hi') return 'तिलहन फसलें (Oilseeds)';
+        if (langCode == 'pa') return 'ਤੇਲ ਬੀਜ ਫ਼ਸਲਾਂ (Oilseeds)';
+        return 'Oilseed Crops';
+      case 'ALL':
+      default:
+        return l10n.allCrops;
+    }
+  }
+
+  String _getCropsCountText(int count, String langCode) {
+    if (langCode == 'hi') {
+      return count == 1 ? '1 फसल उपलब्ध' : '$count फसलें उपलब्ध';
+    }
+    if (langCode == 'pa') {
+      return count == 1 ? '1 ਫ਼ਸਲ ਉਪਲਬਧ' : '$count ਫ਼ਸਲਾਂ ਉਪਲਬਧ';
+    }
+    return count == 1 ? '1 Crop Available' : '$count Crops Available';
+  }
+
+  List<ProductModel> _filterProducts(List<ProductModel> list, String langCode) {
+    return list.where((product) {
+      if (_selectedProductCategory != 'ALL' &&
+          product.category.toLowerCase() !=
+              _selectedProductCategory.toLowerCase()) {
+        return false;
+      }
+
+      if (_searchQuery.isNotEmpty) {
+        final q = _searchQuery.toLowerCase();
+        final name = product.getName(langCode).toLowerCase();
+        final tech = product.technicalName.toLowerCase();
+        final pests = product.getTargetPests(langCode).toLowerCase();
+        final enName = (product.name['en'] ?? '').toLowerCase();
+        final hiName = (product.name['hi'] ?? '').toLowerCase();
+        final paName = (product.name['pa'] ?? '').toLowerCase();
+
+        return name.contains(q) ||
+            tech.contains(q) ||
+            pests.contains(q) ||
+            enName.contains(q) ||
+            hiName.contains(q) ||
+            paName.contains(q);
+      }
+
+      return true;
+    }).toList();
+  }
+
   List<CropModel> _filterCrops(List<CropModel> list, String langCode) {
     return list.where((crop) {
-      if (_selectedCategory == 'Rabi' && crop.season != 'Rabi') {
+      if (_selectedCropCategory == 'Rabi' && crop.season != 'Rabi') {
         return false;
       }
-      if (_selectedCategory == 'Kharif' && crop.season != 'Kharif') {
+      if (_selectedCropCategory == 'Kharif' && crop.season != 'Kharif') {
         return false;
       }
-      if (_selectedCategory == 'Cereal' && crop.category != 'Cereal') {
+      if (_selectedCropCategory == 'Cereal' && crop.category != 'Cereal') {
         return false;
       }
-      if (_selectedCategory == 'Oilseed' && crop.category != 'Oilseed') {
+      if (_selectedCropCategory == 'Oilseed' && crop.category != 'Oilseed') {
         return false;
       }
 
@@ -398,6 +764,207 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
       return true;
     }).toList();
+  }
+
+  // Product Card with technical formula, dosage, pack sizes, and 1-tap call
+  Widget _buildProductCard(
+    BuildContext context,
+    ProductModel product,
+    String langCode,
+    AppLocalizations l10n,
+  ) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 14),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () {
+          context.push('/product/${product.id}');
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Image with ImageKit transform and strict memCache enforcement
+            SizedBox(
+              height: 150,
+              width: double.infinity,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  OptimizedNetworkImage(
+                    imageUrl: product.imageUrl,
+                    height: 150,
+                    width: double.infinity,
+                    memCacheWidth: 500,
+                    memCacheHeight: 300,
+                    fit: BoxFit.cover,
+                  ),
+                  // Category Badge Overlay
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withAlpha(180),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        _getCategoryChipLabel(product.category, l10n),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          product.getName(langCode),
+                          style: AppTypography.title.copyWith(fontSize: 17),
+                        ),
+                      ),
+                      if (product.isOriginal)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 3,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryContainer,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.verified_rounded,
+                                size: 12,
+                                color: AppColors.primary,
+                              ),
+                              SizedBox(width: 3),
+                              Text(
+                                'Genuine',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w800,
+                                  color: AppColors.primaryDark,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    product.technicalName,
+                    style: AppTypography.caption.copyWith(
+                      color: AppColors.secondary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    product.getTargetPests(langCode),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTypography.caption.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Divider(height: 1),
+                  const SizedBox(height: 10),
+
+                  // Key Product Specs Row (Dosage & Rate / Call action)
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              l10n.dosagePerAcre,
+                              style: AppTypography.caption,
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              product.getDosagePerAcre(langCode),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.primaryDark,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      // 1-Tap Call Order Button
+                      OutlinedButton.icon(
+                        onPressed: () => _makePhoneCall(context),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: AppColors.primary,
+                          side: const BorderSide(color: AppColors.primary),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 6,
+                          ),
+                          minimumSize: Size.zero,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
+                        icon: const Icon(Icons.call, size: 14),
+                        label: const Text(
+                          '7355555441',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _getCategoryChipLabel(String category, AppLocalizations l10n) {
+    switch (category.toLowerCase()) {
+      case 'insecticide':
+        return l10n.insecticides;
+      case 'fungicide':
+        return l10n.fungicides;
+      case 'herbicide':
+        return l10n.herbicides;
+      default:
+        return category;
+    }
   }
 
   Widget _buildCropCard(
@@ -696,8 +1263,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  // Shimmer skeleton loaders for perceived performance
-  Widget _buildCropCardShimmer() {
+  // Shimmer skeleton loaders
+  Widget _buildCardShimmer() {
     return Shimmer.fromColors(
       baseColor: AppColors.shimmerBase,
       highlightColor: AppColors.shimmerHighlight,

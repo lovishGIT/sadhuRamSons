@@ -124,6 +124,84 @@ abstract class AppLocalizations {
   /// **'All Crops'**
   String get allCrops;
 
+  /// No description provided for @products.
+  ///
+  /// In en, this message translates to:
+  /// **'Products & Medicines'**
+  String get products;
+
+  /// No description provided for @allProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'All Products'**
+  String get allProducts;
+
+  /// No description provided for @insecticides.
+  ///
+  /// In en, this message translates to:
+  /// **'Insecticides'**
+  String get insecticides;
+
+  /// No description provided for @fungicides.
+  ///
+  /// In en, this message translates to:
+  /// **'Fungicides'**
+  String get fungicides;
+
+  /// No description provided for @herbicides.
+  ///
+  /// In en, this message translates to:
+  /// **'Herbicides'**
+  String get herbicides;
+
+  /// No description provided for @technicalFormula.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical Formulation'**
+  String get technicalFormula;
+
+  /// No description provided for @dosagePerAcre.
+  ///
+  /// In en, this message translates to:
+  /// **'Dosage Per Acre'**
+  String get dosagePerAcre;
+
+  /// No description provided for @targetPests.
+  ///
+  /// In en, this message translates to:
+  /// **'Target Pests & Weeds'**
+  String get targetPests;
+
+  /// No description provided for @packSizes.
+  ///
+  /// In en, this message translates to:
+  /// **'Available Pack Sizes'**
+  String get packSizes;
+
+  /// No description provided for @callToOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Call / Order: 7355555441'**
+  String get callToOrder;
+
+  /// No description provided for @recommendedMedicines.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended Agrochemicals'**
+  String get recommendedMedicines;
+
+  /// No description provided for @viewProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'View Product Details'**
+  String get viewProduct;
+
+  /// No description provided for @originalGuaranteed.
+  ///
+  /// In en, this message translates to:
+  /// **'100% Genuine Guaranteed'**
+  String get originalGuaranteed;
+
   /// No description provided for @videoGuides.
   ///
   /// In en, this message translates to:
@@ -220,12 +298,6 @@ abstract class AppLocalizations {
   /// **'Tap to stream adaptive video guide'**
   String get tapToWatch;
 
-  /// No description provided for @offlineReady.
-  ///
-  /// In en, this message translates to:
-  /// **'100% Offline Ready'**
-  String get offlineReady;
-
   /// No description provided for @cachedCatalog.
   ///
   /// In en, this message translates to:
@@ -235,7 +307,7 @@ abstract class AppLocalizations {
   /// No description provided for @searchHint.
   ///
   /// In en, this message translates to:
-  /// **'Search crops, seeds, pests, tips...'**
+  /// **'Search crops, insecticides, fungicides...'**
   String get searchHint;
 
   /// No description provided for @scientificName.
@@ -283,7 +355,7 @@ abstract class AppLocalizations {
   /// No description provided for @noDataFound.
   ///
   /// In en, this message translates to:
-  /// **'No crop or guide found'**
+  /// **'No item found'**
   String get noDataFound;
 
   /// No description provided for @close.
@@ -319,7 +391,7 @@ abstract class AppLocalizations {
   /// No description provided for @farmerHelpline.
   ///
   /// In en, this message translates to:
-  /// **'Toll-Free Kisan Call Center: 1800-180-1551'**
+  /// **'Sadhu Ram & Sons: 7355555441'**
   String get farmerHelpline;
 
   /// No description provided for @viewDetails.

@@ -7,6 +7,7 @@ import '../local/hive_service.dart';
 import '../models/crop_model.dart';
 import '../models/video_guide_model.dart';
 import '../models/advisory_model.dart';
+import '../models/product_model.dart';
 
 class CatalogRepository {
   final HiveService _hiveService;
@@ -79,6 +80,34 @@ class CatalogRepository {
     }
   }
 
+  /// Retrieve all agrochemical products with instant local fallback
+  Future<List<ProductModel>> getProducts() async {
+    final cached = _hiveService.getProducts();
+    if (cached.isNotEmpty) {
+      return cached;
+    }
+    return _loadProductsFromAsset();
+  }
+
+  /// Retrieve a specific product by ID
+  Future<ProductModel?> getProductById(String id) async {
+    final products = await getProducts();
+    try {
+      return products.firstWhere((p) => p.id.toLowerCase() == id.toLowerCase());
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Retrieve recommended products for a given crop ID
+  Future<List<ProductModel>> getProductsForCrop(String cropId) async {
+    final products = await getProducts();
+    final lowerCropId = cropId.toLowerCase();
+    return products
+        .where((p) => p.targetCrops.any((c) => c.toLowerCase() == lowerCropId))
+        .toList();
+  }
+
   Future<List<CropModel>> _loadCropsFromAsset() async {
     try {
       final jsonStr = await rootBundle.loadString(
@@ -89,6 +118,24 @@ class CatalogRepository {
       final list = data['crops'] as List<dynamic>? ?? [];
       return list
           .map((e) => CropModel.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList();
+    } catch (_) {
+      return [];
+    }
+  }
+
+  Future<List<ProductModel>> _loadProductsFromAsset() async {
+    try {
+      final jsonStr = await rootBundle.loadString(
+        'assets/data/seed_catalog.json',
+      );
+      final Map<String, dynamic> data =
+          json.decode(jsonStr) as Map<String, dynamic>;
+      final list = data['products'] as List<dynamic>? ?? [];
+      return list
+          .map(
+            (e) => ProductModel.fromJson(Map<String, dynamic>.from(e as Map)),
+          )
           .toList();
     } catch (_) {
       return [];
@@ -177,3 +224,22 @@ final advisoryDetailProvider = FutureProvider.family<AdvisoryModel?, String>((
   final repo = ref.watch(catalogRepositoryProvider);
   return repo.getAdvisoryById(id);
 });
+
+final productsProvider = FutureProvider<List<ProductModel>>((ref) async {
+  final repo = ref.watch(catalogRepositoryProvider);
+  return repo.getProducts();
+});
+
+final productDetailProvider = FutureProvider.family<ProductModel?, String>((
+  ref,
+  id,
+) async {
+  final repo = ref.watch(catalogRepositoryProvider);
+  return repo.getProductById(id);
+});
+
+final productsForCropProvider =
+    FutureProvider.family<List<ProductModel>, String>((ref, cropId) async {
+      final repo = ref.watch(catalogRepositoryProvider);
+      return repo.getProductsForCrop(cropId);
+    });

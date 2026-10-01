@@ -60,6 +60,7 @@ void main() {
         isFalse,
       );
       expect(hiveService.getCrops(), isEmpty);
+      expect(hiveService.getProducts(), isEmpty);
       expect(hiveService.getVideoGuides(), isEmpty);
       expect(hiveService.getAdvisories(), isEmpty);
 
@@ -78,6 +79,18 @@ void main() {
       expect(
         crops.map((c) => c.id).toList(),
         containsAll(['wheat', 'paddy', 'mustard']),
+      );
+
+      // Verify all 6 products (insecticides, fungicides, herbicides) are seeded
+      final products = hiveService.getProducts();
+      expect(products.length, equals(6));
+      expect(
+        products.map((p) => p.id).toList(),
+        containsAll(['coragen', 'actara', 'tilt', 'nativo', 'leader', 'rifit']),
+      );
+      expect(
+        products.map((p) => p.category).toSet(),
+        containsAll(['Insecticide', 'Fungicide', 'Herbicide']),
       );
 
       // Verify video guides are immediately available in Hive synchronously
@@ -112,6 +125,20 @@ void main() {
       expect(wheat.getName('hi'), contains('गेहूं'));
       expect(wheat.getName('pa'), contains('ਕਣਕ'));
 
+      // Products verification
+      final products = await repository.getProducts();
+      expect(products.length, equals(6));
+
+      final coragen = await repository.getProductById('coragen');
+      expect(coragen, isNotNull);
+      expect(coragen!.category, equals('Insecticide'));
+      expect(coragen.getName('hi'), contains('कोराजन'));
+      expect(coragen.packSizes, containsAll(['10 ml', '60 ml', '150 ml']));
+
+      final wheatProducts = await repository.getProductsForCrop('wheat');
+      expect(wheatProducts, isNotEmpty);
+      expect(wheatProducts.map((p) => p.id), contains('tilt'));
+
       final video = await repository.getVideoById(
         'wheat_high_yield_masterclass',
       );
@@ -125,6 +152,7 @@ void main() {
       // Initial seed
       await hiveService.seedCatalogIfEmpty();
       expect(hiveService.getCrops().length, equals(3));
+      expect(hiveService.getProducts().length, equals(6));
 
       // Modify a value in Hive to verify that subsequent boot preserves cached state
       await catalogBox.put(

@@ -52,7 +52,7 @@ class AppEnv {
 
   static const String farmerHelpline = String.fromEnvironment(
     'FARMER_HELPLINE',
-    defaultValue: '1800-180-1551',
+    defaultValue: '7355555441',
   );
 
   static const String deepLinkScheme = String.fromEnvironment(

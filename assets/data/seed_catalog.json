@@ -307,5 +307,217 @@
       "level": "info",
       "date": "Seasonal"
     }
+  ],
+  "products": [
+    {
+      "id": "coragen",
+      "name": {
+        "en": "FMC Coragen",
+        "hi": "एफएमसी कोराजन",
+        "pa": "ਐਫਐਮਸੀ ਕੋਰਾਜਨ"
+      },
+      "category": "Insecticide",
+      "technicalName": "Chlorantraniliprole 18.5% SC",
+      "targetPests": {
+        "en": "Stem Borer, Leaf Folder, Bollworm, Diamondback Moth",
+        "hi": "तना छेदक, पत्ता लपेटक, सुंडी, डीबीएम",
+        "pa": "ਤਣਾ ਛੇਦਕ, ਪੱਤਾ ਲਪੇਟ ਸੁੰਡੀ, ਗੁਲਾਬੀ ਸੁੰਡੀ"
+      },
+      "targetCrops": ["paddy", "wheat"],
+      "dosagePerAcre": {
+        "en": "60 ml in 150-200 L water",
+        "hi": "60 मिली 150-200 लीटर पानी में",
+        "pa": "60 ਮਿਲੀਲੀਟਰ 150-200 ਲੀਟਰ ਪਾਣੀ ਵਿੱਚ"
+      },
+      "packSizes": ["10 ml", "60 ml", "150 ml"],
+      "description": {
+        "en": "Leading broad-spectrum anthranilic diamide insecticide. Gives fast and long-lasting protection against lepidopteran pests with unique translaminar action.",
+        "hi": "अग्रणी कीटनाशक जो तना छेदक और सुंडी को तुरंत नष्ट करता है। लंबे समय तक फसल को सुरक्षा प्रदान करता है।",
+        "pa": "ਮੋਹਰੀ ਕੀਟਨਾਸ਼ਕ ਜੋ ਤਣਾ ਛੇਦਕ ਅਤੇ ਪੱਤਾ ਲਪੇਟ ਸੁੰਡੀ ਨੂੰ ਜੜ੍ਹੋਂ ਖ਼ਤਮ ਕਰਦਾ ਹੈ ਅਤੇ ਲੰਬਾ ਅਸਰ ਰੱਖਦਾ ਹੈ।"
+      },
+      "applicationInstructions": {
+        "en": "Spray at early infestation stage. Ensure uniform foliar coverage using flat fan nozzle.",
+        "hi": "कीट के शुरुआती लक्षण दिखते ही छिड़काव करें। पूरे पौधे पर अच्छी तरह स्प्रे करें।",
+        "pa": "ਕੀੜੇ ਦੇ ਸ਼ੁਰੂਆਤੀ ਲੱਛਣ ਦਿਸਣ 'ਤੇ ਹੀ ਸਪਰੇਅ ਕਰੋ। ਸਾਰੇ ਬੂਟਿਆਂ ਉੱਤੇ ਇਕਸਾਰ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d",
+      "priceRange": "₹1,450 - ₹1,550 (150 ml)",
+      "isOriginal": true
+    },
+    {
+      "id": "actara",
+      "name": {
+        "en": "Syngenta Actara",
+        "hi": "सिंजेंटा एक्टारा",
+        "pa": "ਸਿੰਜੈਂਟਾ ਐਕਟਾਰਾ"
+      },
+      "category": "Insecticide",
+      "technicalName": "Thiamethoxam 25% WG",
+      "targetPests": {
+        "en": "Aphids (Chepa/Mahu), Jassids, Whitefly, Brown Plant Hopper (BPH)",
+        "hi": "माहू (चेपा), तेला, सफेद मक्खी, भूरा फुदका",
+        "pa": "ਚੇਪਾ (ਮਾਹੂ), ਤੇਲਾ, ਚਿੱਟੀ ਮੱਖੀ, ਭੂਰਾ ਟਿੱਡਾ"
+      },
+      "targetCrops": ["wheat", "mustard", "paddy"],
+      "dosagePerAcre": {
+        "en": "40 - 80 g in 150-200 L water",
+        "hi": "40 - 80 ग्राम 150-200 लीटर पानी में",
+        "pa": "40 - 80 ਗ੍ਰਾਮ 150-200 ਲੀਟਰ ਪਾਣੀ ਵਿੱਚ"
+      },
+      "packSizes": ["100 g", "250 g", "500 g", "1 kg"],
+      "description": {
+        "en": "World-class systemic neonicotinoid insecticide with vigorous crop enhancement effect. Rapidly absorbed and translocated throughout the plant.",
+        "hi": "अत्यंत प्रभावी अंतःप्रवाही कीटनाशक। रस चूसक कीटों जैसे माहू और तेला का संपूर्ण खात्मा करता है।",
+        "pa": "ਸ਼ਾਨਦਾਰ ਪ੍ਰਣਾਲੀਗਤ ਕੀਟਨਾਸ਼ਕ ਜੋ ਰਸ ਚੂਸਣ ਵਾਲੇ ਕੀੜਿਆਂ ਜਿਵੇਂ ਚੇਪਾ ਤੇ ਤੇਲਾ ਨੂੰ ਤੇਜ਼ੀ ਨਾਲ ਖ਼ਤਮ ਕਰਦਾ ਹੈ।"
+      },
+      "applicationInstructions": {
+        "en": "Apply when pest threshold is observed. Compatible with most common fungicides.",
+        "hi": "कीट दिखने पर छिड़काव करें। अन्य फफूंदनाशकों के साथ भी मिलाया जा सकता है।",
+        "pa": "ਕੀਟ ਦੇਖਣ 'ਤੇ ਤੁਰੰਤ ਛਿੜਕਾਅ ਕਰੋ। ਆਮ ਉੱਲੀਨਾਸ਼ਕਾਂ ਨਾਲ ਮਿਲਾ ਕੇ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ।"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5",
+      "priceRange": "₹420 - ₹460 (100 g)",
+      "isOriginal": true
+    },
+    {
+      "id": "tilt",
+      "name": {
+        "en": "Syngenta Tilt / Propiconazole",
+        "hi": "सिंजेंटा टिल्ट (प्रोपिकोनाजोल)",
+        "pa": "ਸਿੰਜੈਂਟਾ ਟਿਲਟ (ਪ੍ਰੋਪੀਕੋਨਾਜ਼ੋਲ)"
+      },
+      "category": "Fungicide",
+      "technicalName": "Propiconazole 25% EC",
+      "targetPests": {
+        "en": "Yellow Rust (Peeli Kungi), Karnal Bunt, Sheath Blight, Powdery Mildew",
+        "hi": "पीला रतुआ (कंगनी), करनाल बंट, शीथ ब्लाइट",
+        "pa": "ਪੀਲੀ ਕੁੰਗੀ, ਕਰਨਾਲ ਬੰਟ, ਸ਼ੀਥ ਬਲਾਈਟ, ਉੱਲੀ ਰੋਗ"
+      },
+      "targetCrops": ["wheat", "paddy"],
+      "dosagePerAcre": {
+        "en": "200 ml in 200 L water",
+        "hi": "200 मिली 200 लीटर पानी में",
+        "pa": "200 ਮਿਲੀਲੀਟਰ 200 ਲੀਟਰ ਪਾਣੀ ਵਿੱਚ"
+      },
+      "packSizes": ["100 ml", "250 ml", "500 ml", "1 L"],
+      "description": {
+        "en": "Premier broad-spectrum triazole fungicide with protective, curative and eradicative action against Yellow Rust and foliar fungal diseases.",
+        "hi": "गेहूं के पीले रतुए और अन्य फंगल रोगों के लिए सबसे भरोसेमंद दवा। सुरक्षात्मक एवं उपचारात्मक दोनों असर।",
+        "pa": "ਕਣਕ ਦੀ ਪੀਲੀ ਕੁੰਗੀ ਲਈ ਸਭ ਤੋਂ ਭਰੋਸੇਯੋਗ ਉੱਲੀਨਾਸ਼ਕ। ਰੋਗ ਨੂੰ ਰੋਕਦਾ ਅਤੇ ਫੈਲਣ ਤੋਂ ਬਚਾਉਂਦਾ ਹੈ।"
+      },
+      "applicationInstructions": {
+        "en": "Spray immediately upon first symptom of yellow rust stripes on wheat leaves. Repeat after 15 days if required.",
+        "hi": "पीले रतुए के लक्षण दिखते ही तुरंत 200 लीटर पानी में घोलकर छिड़कें।",
+        "pa": "ਪੀਲੀ ਕੁੰਗੀ ਦੀਆਂ ਧਾਰੀਆਂ ਦਿਸਦੇ ਹੀ 200 ਲੀਟਰ ਪਾਣੀ 'ਚ ਘੋਲ ਕੇ ਸਪਰੇਅ ਕਰੋ।"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1592417817098-8f3d69102a56",
+      "priceRange": "₹650 - ₹720 (500 ml)",
+      "isOriginal": true
+    },
+    {
+      "id": "nativo",
+      "name": {
+        "en": "Bayer Nativo",
+        "hi": "बायर नैटिवो",
+        "pa": "ਬਾਇਰ ਨੈਟੀਵੋ"
+      },
+      "category": "Fungicide",
+      "technicalName": "Tebuconazole 50% + Trifloxystrobin 25% WG",
+      "targetPests": {
+        "en": "Sheath Blight, Neck Blast, Brown Rust, Leaf Spot",
+        "hi": "शीथ ब्लाइट, गर्दन तोड़ (ब्लास्ट), भूरा रतुआ, टिक्का",
+        "pa": "ਸ਼ੀਥ ਬਲਾਈਟ, ਗਰਦਨ ਮਰੋੜ (ਬਲਾਸਟ), ਭੂਰੀ ਕੁੰਗੀ"
+      },
+      "targetCrops": ["paddy", "wheat"],
+      "dosagePerAcre": {
+        "en": "80 - 100 g in 200 L water",
+        "hi": "80 - 100 ग्राम 200 लीटर पानी में",
+        "pa": "80 - 100 ਗ੍ਰਾਮ 200 ਲੀਟਰ ਪਾਣੀ ਵਿੱਚ"
+      },
+      "packSizes": ["50 g", "100 g", "250 g", "500 g"],
+      "description": {
+        "en": "Advanced systemic fungicide combination giving superior disease control, greener flag leaves, and cleaner grains with higher test weight.",
+        "hi": "धान और गेहूं में ब्लास्ट और शीथ ब्लाइट का सर्वोत्तम समाधान। दाना चमकदार और वजनदार बनाता है।",
+        "pa": "ਝੋਨੇ ਅਤੇ ਕਣਕ ਦੇ ਰੋਗਾਂ ਲਈ ਉੱਤਮ ਉੱਲੀਨਾਸ਼ਕ। ਦਾਣਿਆਂ ਨੂੰ ਚਮਕਦਾਰ ਤੇ ਵਜ਼ਨਦਾਰ ਬਣਾਉਂਦਾ ਹੈ।"
+      },
+      "applicationInstructions": {
+        "en": "Spray at booting or early heading stage in paddy for maximum grain protection and lustrous crop.",
+        "hi": "धान में गोभ अवस्था या बाली निकलने के समय छिड़काव करें।",
+        "pa": "ਝੋਨੇ ਵਿੱਚ ਗੋਭ ਸਮੇਂ ਜਾਂ ਨਿੱਸਰਣ ਵੇਲੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1527842891421-42eec6e703ea",
+      "priceRange": "₹780 - ₹850 (100 g)",
+      "isOriginal": true
+    },
+    {
+      "id": "leader",
+      "name": {
+        "en": "UPL Leader",
+        "hi": "यूपीएल लीडर",
+        "pa": "ਯੂਪੀਐਲ ਲੀਡਰ"
+      },
+      "category": "Herbicide",
+      "technicalName": "Sulfosulfuron 75% WG",
+      "targetPests": {
+        "en": "Phalaris minor (Gulli Danda / Mandusi), Wild Oat (Jangli Jai), Chenopodium (Bathu)",
+        "hi": "गुल्ली डंडा (मंडूसी), जंगली जई, बथुआ, मोथा",
+        "pa": "ਗੁੱਲੀ ਡੰਡਾ (ਮੰਡੂਸੀ), ਜੰਗਲੀ ਜਵੀ, ਬਾਥੂ"
+      },
+      "targetCrops": ["wheat"],
+      "dosagePerAcre": {
+        "en": "13.5 g + 500 ml Surfactant in 150 L water",
+        "hi": "13.5 ग्राम + 500 मिली चिपकू (सर्फैक्टेंट) 150 लीटर पानी में",
+        "pa": "13.5 ਗ੍ਰਾਮ + 500 ਮਿਲੀਲੀਟਰ ਸਰਫੈਕਟੈਂਟ 150 ਲੀਟਰ ਪਾਣੀ ਵਿੱਚ"
+      },
+      "packSizes": ["13.5 g (1 Acre Pack)"],
+      "description": {
+        "en": "Targeted post-emergence selective herbicide for wheat. Highly effective against stubborn Phalaris minor and broadleaf weeds in a single spray.",
+        "hi": "गेहूं में गुल्ली डंडा और चौड़ी पत्ती वाले खरपतवारों का एक ही बार में सम्पूर्ण नियंत्रण।",
+        "pa": "ਕਣਕ ਵਿੱਚ ਗੁੱਲੀ ਡੰਡੇ ਅਤੇ ਚੌੜੇ ਪੱਤਿਆਂ ਵਾਲੇ ਨਦੀਨਾਂ ਦਾ ਇੱਕੋ ਸਪਰੇਅ ਵਿੱਚ ਪੂਰਾ ਖ਼ਾਤਮਾ।"
+      },
+      "applicationInstructions": {
+        "en": "Spray 30-35 days after sowing (post first irrigation when soil is at wapsa condition). Use flat fan nozzle.",
+        "hi": "पहली सिंचाई के बाद (30-35 दिन पर) बतर आने पर फ्लैट फैन नोजल से 150 लीटर पानी में स्प्रे करें।",
+        "pa": "ਪਹਿਲੇ ਪਾਣੀ ਤੋਂ ਬਾਅਦ (30-35 ਦਿਨਾਂ 'ਤੇ) ਵੱਤਰ ਆਉਣ 'ਤੇ ਫਲੈਟ ਫੈਨ ਨੋਜ਼ਲ ਨਾਲ ਛਿੜਕੋ।"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854",
+      "priceRange": "₹380 - ₹430 (13.5 g pack)",
+      "isOriginal": true
+    },
+    {
+      "id": "rifit",
+      "name": {
+        "en": "Syngenta Rifit / Pretilachlor",
+        "hi": "सिंजेंटा रिफिट (प्रेटिलाक्लोर)",
+        "pa": "ਸਿੰਜੈਂਟਾ ਰਿਫਿਟ (ਪ੍ਰੈਟੀਲਾਕਲੋਰ)"
+      },
+      "category": "Herbicide",
+      "technicalName": "Pretilachlor 50% EC",
+      "targetPests": {
+        "en": "Echinochloa (Swank/Sawa), Cyperus (Motha), Annual Grasses",
+        "hi": "स्वांक, सांवा, मोथा, चौड़ी पत्ती के खरपतवार",
+        "pa": "ਸਵਾਂਕ, ਸਾਂਵਾਂ, ਡੀਲਾ/ਮੋਥਾ, ਘਾਹ ਨਦੀਨ"
+      },
+      "targetCrops": ["paddy"],
+      "dosagePerAcre": {
+        "en": "500 ml in standing water or mixed with 20 kg sand",
+        "hi": "500 मिली खड़े पानी में या 20 किग्रा बालू में मिलाकर",
+        "pa": "500 ਮਿਲੀਲੀਟਰ ਖੜ੍ਹੇ ਪਾਣੀ ਵਿੱਚ ਜਾਂ 20 ਕਿੱਲੋ ਰੇਤ ਵਿੱਚ ਮਿਲਾ ਕੇ"
+      },
+      "packSizes": ["500 ml", "1 L", "5 L"],
+      "description": {
+        "en": "Pre-emergence selective herbicide for transplanted paddy. Forms a protective barrier on soil surface preventing weed germination.",
+        "hi": "धान की रोपाई के बाद स्वांक और अन्य खरपतवारों को उगने से पहले ही रोकता है।",
+        "pa": "ਝੋਨੇ ਦੀ ਲੁਆਈ ਤੋਂ ਬਾਅਦ ਸਵਾਂਕ ਅਤੇ ਹੋਰ ਨਦੀਨਾਂ ਨੂੰ ਉੱਗਣ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਰੋਕਣ ਵਾਲਾ ਨਦੀਨਨਾਸ਼ਕ।"
+      },
+      "applicationInstructions": {
+        "en": "Apply within 0-3 days after transplanting in 2-3 inches of standing water. Maintain water for 48 hours.",
+        "hi": "रोपाई के 0 से 3 दिन के अंदर 2-3 इंच खड़े पानी में छिड़कें या बालू में मिलाकर डालें।",
+        "pa": "ਝੋਨੇ ਦੀ ਲੁਆਈ ਦੇ 0 ਤੋਂ 3 ਦਿਨਾਂ ਦੇ ਅੰਦਰ 2-3 ਇੰਚ ਖੜ੍ਹੇ ਪਾਣੀ ਵਿੱਚ ਪਾਓ।"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1595974482597-4b8da8879bc5",
+      "priceRange": "₹490 - ₹540 (1 L)",
+      "isOriginal": true
+    }
   ]
 }

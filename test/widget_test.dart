@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sadhuramsons/core/utils/media_url_helper.dart';
 import 'package:sadhuramsons/data/models/crop_model.dart';
+import 'package:sadhuramsons/data/models/product_model.dart';
 import 'package:sadhuramsons/data/models/video_guide_model.dart';
 
 void main() {
@@ -94,5 +95,48 @@ void main() {
       expect(video.youtubeId, equals('g20VYGsmWbU'));
       expect(video.getTitle('en'), equals('Wheat Sowing Guide'));
     });
+
+    test(
+      'ProductModel parses agrochemical specifications and translations',
+      () {
+        final product = ProductModel.fromJson({
+          'id': 'coragen',
+          'name': {
+            'en': 'FMC Coragen',
+            'hi': 'एफएमसी कोराजन',
+            'pa': 'ਐਫਐਮਸੀ ਕੋਰਾਜਨ',
+          },
+          'category': 'Insecticide',
+          'technicalName': 'Chlorantraniliprole 18.5% SC',
+          'targetPests': {
+            'en': 'Stem Borer, Leaf Folder',
+            'hi': 'तना छेदक, पत्ता लपेटक',
+            'pa': 'ਤਣਾ ਛੇਦਕ',
+          },
+          'targetCrops': ['paddy', 'wheat'],
+          'dosagePerAcre': {
+            'en': '60 ml in 150-200 L water',
+            'hi': '60 मिली 150-200 लीटर पानी में',
+            'pa': '60 ਮਿਲੀਲੀਟਰ',
+          },
+          'packSizes': ['10 ml', '60 ml', '150 ml'],
+          'description': {'en': 'Leading insecticide'},
+          'applicationInstructions': {'en': 'Spray with flat fan nozzle'},
+          'imageUrl': 'https://example.com/coragen.jpg',
+          'priceRange': '₹1,450 - ₹1,550',
+          'isOriginal': true,
+        });
+
+        expect(product.id, equals('coragen'));
+        expect(product.category, equals('Insecticide'));
+        expect(product.getName('hi'), equals('एफएमसी कोराजन'));
+        expect(product.getName('pa'), equals('ਐਫਐਮਸੀ ਕੋਰਾਜਨ'));
+        expect(product.getTargetPests('hi'), contains('तना छेदक'));
+        expect(product.getDosagePerAcre('en'), contains('60 ml'));
+        expect(product.packSizes, hasLength(3));
+        expect(product.targetCrops, containsAll(['paddy', 'wheat']));
+        expect(product.isOriginal, isTrue);
+      },
+    );
   });
 }

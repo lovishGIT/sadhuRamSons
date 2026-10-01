@@ -13,13 +13,52 @@ class AppLocalizationsPa extends AppLocalizations {
   String get appTitle => 'ਕਿਸਾਨ ਮਿੱਤਰ';
 
   @override
-  String get appSubtitle => 'ਸਾਧੂ ਰਾਮ ਐਂਡ ਸੰਨਜ਼ ਖੇਤੀਬਾੜੀ ਸਲਾਹ';
+  String get appSubtitle => 'ਸਾਧੂ ਰਾਮ ਐਂਡ ਸੰਨਜ਼ ਖੇਤੀ ਸਲਾਹ ਤੇ ਉਤਪਾਦ';
 
   @override
   String get crops => 'ਫ਼ਸਲਾਂ';
 
   @override
   String get allCrops => 'ਸਾਰੀਆਂ ਮੁੱਖ ਫ਼ਸਲਾਂ';
+
+  @override
+  String get products => 'ਕੀਟਨਾਸ਼ਕ ਤੇ ਦਵਾਈਆਂ';
+
+  @override
+  String get allProducts => 'ਸਾਰੇ ਉਤਪਾਦ';
+
+  @override
+  String get insecticides => 'ਕੀਟਨਾਸ਼ਕ';
+
+  @override
+  String get fungicides => 'ਉੱਲੀਨਾਸ਼ਕ';
+
+  @override
+  String get herbicides => 'ਨਦੀਨਨਾਸ਼ਕ';
+
+  @override
+  String get technicalFormula => 'ਤਕਨੀਕੀ ਫਾਰਮੂਲਾ';
+
+  @override
+  String get dosagePerAcre => 'ਪ੍ਰਤੀ ਏਕੜ ਮਾਤਰਾ';
+
+  @override
+  String get targetPests => 'ਰੋਕਥਾਮ ਯੋਗ ਕੀੜੇ ਤੇ ਬਿਮਾਰੀਆਂ';
+
+  @override
+  String get packSizes => 'ਉਪਲਬਧ ਪੈਕਿੰਗ';
+
+  @override
+  String get callToOrder => 'ਆਰਡਰ ਜਾਂ ਸਲਾਹ: 7355555441';
+
+  @override
+  String get recommendedMedicines => 'ਸਿਫਾਰਸ਼ ਕੀਤੀਆਂ ਖੇਤੀ ਦਵਾਈਆਂ';
+
+  @override
+  String get viewProduct => 'ਉਤਪਾਦ ਦੀ ਪੂਰੀ ਜਾਣਕਾਰੀ';
+
+  @override
+  String get originalGuaranteed => '100% ਅਸਲੀ ਤੇ ਪ੍ਰਮਾਣਿਤ';
 
   @override
   String get videoGuides => 'ਵੀਡੀਓ ਗਾਈਡ';
@@ -70,13 +109,10 @@ class AppLocalizationsPa extends AppLocalizations {
   String get tapToWatch => 'ਯੂਟਿਊਬ ਉੱਤੇ ਉੱਚ ਕੁਆਲਿਟੀ ਗਾਈਡ ਦੇਖੋ';
 
   @override
-  String get offlineReady => '100% ਆਫ਼ਲਾਈਨ ਤਿਆਰ';
-
-  @override
   String get cachedCatalog => 'ਲੋਕਲ ਮੈਮੋਰੀ ਤੋਂ ਲੋਡ ਕੀਤਾ ਗਿਆ';
 
   @override
-  String get searchHint => 'ਫ਼ਸਲ, ਬੀਜ, ਕੀਟ ਜਾਂ ਸੁਝਾਅ ਲੱਭੋ...';
+  String get searchHint => 'ਫ਼ਸਲ, ਕੀਟਨਾਸ਼ਕ, ਉੱਲੀਨਾਸ਼ਕ, ਨਦੀਨਨਾਸ਼ਕ ਲੱਭੋ...';
 
   @override
   String get scientificName => 'ਬੋਟੈਨੀਕਲ ਨਾਮ';
@@ -118,7 +154,7 @@ class AppLocalizationsPa extends AppLocalizations {
   String get kharifSeason => 'ਸਾਉਣੀ ਫ਼ਸਲ';
 
   @override
-  String get farmerHelpline => 'ਮੁਫ਼ਤ ਕਿਸਾਨ ਕਾਲ ਸੈਂਟਰ: 1800-180-1551';
+  String get farmerHelpline => 'ਸਾਧੂ ਰਾਮ ਐਂਡ ਸੰਨਜ਼ ਸੰਪਰਕ: 7355555441';
 
   @override
   String get viewDetails => 'ਪੂਰੀ ਜਾਣਕਾਰੀ ਵੇਖੋ';

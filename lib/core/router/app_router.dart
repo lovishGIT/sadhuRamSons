@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/crop_detail/crop_detail_screen.dart';
 import '../../features/home/advisory_detail_screen.dart';
 import '../../features/home/home_screen.dart';
+import '../../features/product_detail/product_detail_screen.dart';
 import '../../features/video_player/video_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -23,6 +24,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) {
           final cropId = state.pathParameters['id'] ?? '';
           return CropDetailScreen(cropId: cropId);
+        },
+      ),
+      // Declarative Deep Link: /product/:id (e.g. /product/coragen, /product/tilt)
+      GoRoute(
+        path: '/product/:id',
+        name: 'product_detail',
+        builder: (context, state) {
+          final productId = state.pathParameters['id'] ?? '';
+          return ProductDetailScreen(productId: productId);
         },
       ),
       // Declarative Deep Link: /advisory/:id (e.g. /advisory/weather_alert_rain)

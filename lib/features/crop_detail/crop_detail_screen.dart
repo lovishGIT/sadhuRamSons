@@ -416,6 +416,15 @@ class CropDetailScreen extends ConsumerWidget {
                         const SizedBox(height: 20),
                       ],
 
+                      // Recommended Agrochemical Medicines Section
+                      _buildRecommendedProducts(
+                        context,
+                        ref,
+                        crop.id,
+                        langCode,
+                        l10n,
+                      ),
+
                       // Linked Video Guides Section
                       _buildRelatedVideos(
                         context,
@@ -657,6 +666,123 @@ class CropDetailScreen extends ConsumerWidget {
                 ),
               );
             }),
+          ],
+        );
+      },
+      loading: () => const SizedBox.shrink(),
+      error: (err, stack) => const SizedBox.shrink(),
+    );
+  }
+
+  Widget _buildRecommendedProducts(
+    BuildContext context,
+    WidgetRef ref,
+    String cropId,
+    String langCode,
+    AppLocalizations l10n,
+  ) {
+    final productsAsync = ref.watch(productsForCropProvider(cropId));
+
+    return productsAsync.when(
+      data: (products) {
+        if (products.isEmpty) return const SizedBox.shrink();
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Icon(
+                  Icons.medication_liquid_rounded,
+                  color: AppColors.primary,
+                  size: 20,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  l10n.recommendedMedicines,
+                  style: AppTypography.title.copyWith(fontSize: 16),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            ...products.map((product) {
+              return Card(
+                margin: const EdgeInsets.only(bottom: 12),
+                child: ListTile(
+                  contentPadding: const EdgeInsets.all(12),
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: SizedBox(
+                      width: 58,
+                      height: 58,
+                      child: OptimizedNetworkImage(
+                        imageUrl: product.imageUrl,
+                        width: 58,
+                        height: 58,
+                        memCacheWidth: 150,
+                        memCacheHeight: 150,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  title: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          product.getName(langCode),
+                          style: AppTypography.subtitle.copyWith(fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryContainer,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          product.category,
+                          style: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.onPrimaryContainer,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 3),
+                      Text(
+                        product.technicalName,
+                        style: AppTypography.caption.copyWith(
+                          color: AppColors.secondary,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 11,
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      Text(
+                        '${l10n.dosagePerAcre}: ${product.getDosagePerAcre(langCode)}',
+                        style: AppTypography.caption.copyWith(fontSize: 11),
+                      ),
+                    ],
+                  ),
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    color: AppColors.primary,
+                  ),
+                  onTap: () {
+                    context.push('/product/${product.id}');
+                  },
+                ),
+              );
+            }),
+            const SizedBox(height: 8),
           ],
         );
       },

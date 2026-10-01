@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../models/crop_model.dart';
 import '../models/video_guide_model.dart';
 import '../models/advisory_model.dart';
+import '../models/product_model.dart';
 
 /// Pure Dart local storage service using Hive.
 /// Zero native SQLite overhead, zero memory leaks, ultra-fast binary I/O.
@@ -14,6 +15,7 @@ class HiveService {
   static const String settingsBoxName = 'sadhuram_settings_box';
 
   static const String keyCrops = 'crops_data';
+  static const String keyProducts = 'products_data';
   static const String keyVideos = 'videos_data';
   static const String keyAdvisories = 'advisories_data';
   static const String keyIsInitialized = 'catalog_initialized';
@@ -52,7 +54,9 @@ class HiveService {
 
     final isInitialized =
         box.get(keyIsInitialized, defaultValue: false) as bool;
-    if (isInitialized && box.containsKey(keyCrops)) {
+    if (isInitialized &&
+        box.containsKey(keyCrops) &&
+        box.containsKey(keyProducts)) {
       return;
     }
 
@@ -66,6 +70,9 @@ class HiveService {
       await box.put(keyCrops, json.encode(data['crops']));
       await box.put(keyVideos, json.encode(data['videoGuides']));
       await box.put(keyAdvisories, json.encode(data['advisories']));
+      if (data['products'] != null) {
+        await box.put(keyProducts, json.encode(data['products']));
+      }
       await box.put(keyIsInitialized, true);
     } catch (e) {
       // In case of asset reading error, fallback cleanly
@@ -83,6 +90,25 @@ class HiveService {
       final List<dynamic> list = json.decode(raw as String) as List<dynamic>;
       return list
           .map((e) => CropModel.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList();
+    } catch (_) {
+      return [];
+    }
+  }
+
+  /// Retrieve cached products synchronously from in-memory Hive box
+  List<ProductModel> getProducts() {
+    final box = _catalogBox;
+    if (box == null) return [];
+
+    final raw = box.get(keyProducts);
+    if (raw == null) return [];
+    try {
+      final List<dynamic> list = json.decode(raw as String) as List<dynamic>;
+      return list
+          .map(
+            (e) => ProductModel.fromJson(Map<String, dynamic>.from(e as Map)),
+          )
           .toList();
     } catch (_) {
       return [];

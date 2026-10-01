@@ -13,13 +13,52 @@ class AppLocalizationsHi extends AppLocalizations {
   String get appTitle => 'किसान मित्र';
 
   @override
-  String get appSubtitle => 'साधू राम एंड संस कृषि सलाह';
+  String get appSubtitle => 'साधू राम एंड संस कृषि सलाह व उत्पाद';
 
   @override
   String get crops => 'फसलें';
 
   @override
   String get allCrops => 'सभी मुख्य फसलें';
+
+  @override
+  String get products => 'कीटनाशक व दवाइयां';
+
+  @override
+  String get allProducts => 'सभी उत्पाद';
+
+  @override
+  String get insecticides => 'कीटनाशक';
+
+  @override
+  String get fungicides => 'फफूंदनाशक';
+
+  @override
+  String get herbicides => 'खरपतवारनाशक';
+
+  @override
+  String get technicalFormula => 'तकनीकी घटक (Formula)';
+
+  @override
+  String get dosagePerAcre => 'प्रति एकड़ मात्रा';
+
+  @override
+  String get targetPests => 'नियंत्रित कीट एवं रोग';
+
+  @override
+  String get packSizes => 'उपलब्ध पैकिंग';
+
+  @override
+  String get callToOrder => 'ऑर्डर या सलाह: 7355555441';
+
+  @override
+  String get recommendedMedicines => 'अनुशंसित कृषि दवाइयां';
+
+  @override
+  String get viewProduct => 'दवा की पूरी जानकारी';
+
+  @override
+  String get originalGuaranteed => '100% असली व प्रमाणित';
 
   @override
   String get videoGuides => 'वीडियो मार्गदर्शिका';
@@ -55,7 +94,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get expectedYield => 'अनुमानित उपज';
 
   @override
-  String get marketPrice => 'बाजार भाव (न्यूनतम समर्थन मूल्य)';
+  String get marketPrice => 'बाजार भाव (MSP)';
 
   @override
   String get expertTips => 'विशेषज्ञ कृषि सुझाव';
@@ -70,13 +109,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get tapToWatch => 'यूट्यूब पर उन्नत कृषि वीडियो देखें';
 
   @override
-  String get offlineReady => '100% ऑफलाइन उपलब्ध';
-
-  @override
   String get cachedCatalog => 'लोकल मेमोरी से लोड किया गया';
 
   @override
-  String get searchHint => 'फसल, बीज, कीट या सुझाव खोजें...';
+  String get searchHint => 'फसल, कीटनाशक, फफूंदनाशक, खरपतवारनाशक खोजें...';
 
   @override
   String get scientificName => 'वानस्पतिक नाम';
@@ -118,7 +154,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get kharifSeason => 'खरीफ फसल';
 
   @override
-  String get farmerHelpline => 'निःशुल्क किसान कॉल सेंटर: 1800-180-1551';
+  String get farmerHelpline => 'साधू राम एंड संस संपर्क: 7355555441';
 
   @override
   String get viewDetails => 'पूरी जानकारी देखें';
